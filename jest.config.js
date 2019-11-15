@@ -5,10 +5,10 @@ const newConfig = Object.assign(jestConfig, {
   displayName: 'useMediaBreakpoints',
   coverageThreshold: {
     global: {
-      statements: 80,
-      branches: 50,
+      statements: 100,
+      branches: 90,
       functions: 100,
-      lines: 80,
+      lines: 100,
     },
   },
 })
