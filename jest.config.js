@@ -2,13 +2,13 @@ const jestConfig = require('ada-scripts/jest')
 
 const newConfig = Object.assign(jestConfig, {
   roots: ['./src'],
-  displayName: 'useComponentSize',
+  displayName: 'useMediaBreakpoints',
   coverageThreshold: {
     global: {
-      statements: 90,
-      branches: 100,
-      functions: 80,
-      lines: 100,
+      statements: 80,
+      branches: 50,
+      functions: 100,
+      lines: 80,
     },
   },
 })

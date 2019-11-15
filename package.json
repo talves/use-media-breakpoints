@@ -30,10 +30,15 @@
     "@babel/runtime": "^7.4.4"
   },
   "devDependencies": {
+    "@testing-library/dom": "^6.10.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/react-hooks": "^3.2.1",
     "ada-scripts": "^2.0.2",
     "semantic-release": "^15.13.30",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "react-test-renderer": "^16.12.0"
   },
   "peerDependencies": {
     "react": "^16.11.0",
