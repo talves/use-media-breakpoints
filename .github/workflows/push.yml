@@ -12,7 +12,7 @@ jobs:
       - name: Validate
         run: yarn validate
       - name: Build
-        uses: yarn build
+        run: yarn build
       - name: SemanticRelease
         if: github.event.ref == 'refs/heads/master'
         run: yarn semantic-release
