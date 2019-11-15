@@ -1,19 +1,40 @@
 import React from 'react'
 
-export const getDefaultBreakpoint = (queries, values, defaultValue) => {
-  if (queries.length !== values.length) {
-    throw new Error(
-      '[use-media-breakpoints] queries and values array must have same length',
-    )
+const resolveQueriesArray = queries => {
+  let queriesArray = []
+  if (typeof queries === 'string') {
+    queriesArray.push(queries)
+  } else {
+    queriesArray = queries.map(q => q)
   }
-  if (typeof window === 'undefined') {
+  return queriesArray
+}
+
+const resolveValuesArray = (queriesArray, values, defaultValue) => {
+  let valuesArray = []
+  if (typeof values === 'string') {
+    valuesArray.push(values)
+  } else {
+    valuesArray = values.map(q => q)
+  }
+  if (valuesArray.length < queriesArray.length) {
+    for (let i = valuesArray.length; i < queriesArray.length; i++)
+      valuesArray.push(defaultValue)
+  }
+  return valuesArray
+}
+
+export const getDefaultBreakpoint = (queries, values, defaultValue) => {
+  const queriesArray = resolveQueriesArray(queries)
+  const valuesArray = resolveValuesArray(queriesArray, values, defaultValue)
+  if (typeof window === 'undefined' || queries.length === 0) {
     return defaultValue
   } else {
-    const index = queries.findIndex(query => {
+    const index = queriesArray.findIndex(query => {
       const mq = window.matchMedia(query)
       return mq.matches
     })
-    return index === -1 ? defaultValue : values[index]
+    return index === -1 ? defaultValue : valuesArray[index]
   }
 }
 
@@ -23,21 +44,18 @@ export default function useMediaBreakpoints(queries, values, defaultValue) {
   )
 
   React.useEffect(() => {
-    if (queries.length !== values.length) {
-      throw new Error(
-        '[use-media-breakpoints] queries and values array must have same length',
-      )
-    }
+    const queriesArray = resolveQueriesArray(queries)
+    const valuesArray = resolveValuesArray(queriesArray, values, defaultValue)
     let queryList = []
     function queryHandler() {
       // Get index of first media query that matches
       const index = queryList.findIndex(mq => mq.matches)
       // Return related value or defaultValue if none
-      setValue(index === -1 ? defaultValue : values[index])
+      setValue(index === -1 ? defaultValue : valuesArray[index])
     }
 
     if (typeof window !== 'undefined') {
-      queryList = queries.map(query => {
+      queryList = queriesArray.map(query => {
         const mq = window.matchMedia(query)
         mq.addListener(queryHandler)
         return mq
