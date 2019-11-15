@@ -1,6 +1,6 @@
 {
   "name": "use-media-breakpoints",
-  "version": "0.0.1",
+  "version": "0.0.0-semantically-released",
   "description": "React hooks utility module library",
   "main": "dist/use-media-breakpoints.js",
   "jsnext:main": "dist/use-media-breakpoints.esm.js",

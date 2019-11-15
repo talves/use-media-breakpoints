@@ -7,23 +7,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-      - name: YarnInstall
-        uses: talves/actions-yarn@master
-        with:
-          args: install
+      - name: Install Dependencies
+        run: yarn install
       - name: Validate
-        uses: talves/actions-yarn@master
-        with:
-          args: validate
+        run: yarn validate
       - name: Build
-        uses: talves/actions-yarn@master
-        with:
-          args: build
+        uses: yarn build
       - name: SemanticRelease
         if: github.event.ref == 'refs/heads/master'
-        uses: talves/actions-yarn@master
+        run: yarn semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        with:
-          args: semantic-release
